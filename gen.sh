@@ -25,6 +25,16 @@ mkdir -p out shuf
     ssh-keygen -y -f ./out/D > ./out/D.pub
     ssh-keygen -f ./out/D.pub -e -m pem > ./out/D.pem
     openssl rsa -RSAPublicKey_in -in ./out/D.pem -inform PEM -outform DER -out ./out/D.der -RSAPublicKey_out 2>/dev/null
+
+    # openssh rsa 1024 (only the private key)
+    ssh-keygen -t rsa -b 1024 -C "" -f ./out/E -q -N ""
+    rm -f ./out/E.pub
+
+    # openssh rsa 1024 (only the pub key)
+    ssh-keygen -t rsa -b 1024 -C "" -f ./out/F -q -N ""
+    ssh-keygen -f ./out/F.pub -e -m pem > ./out/F.pem
+    openssl rsa -RSAPublicKey_in -in ./out/F.pem -inform PEM -outform DER -out ./out/F.der -RSAPublicKey_out 2>/dev/null
+    rm -f ./out/F
 )
 
 # generated keys can be cleaned up with
