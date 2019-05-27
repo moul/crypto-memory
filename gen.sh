@@ -44,7 +44,10 @@ mkdir -p out shuf
 counter=0
 for file in $(ls ./out/* | shuf); do
     counter=$((counter+1))
-    cp $file shuf/file_$counter
+    (
+        set -x
+        cp $file shuf/file_$counter
+    )
 done
 
 # zip
